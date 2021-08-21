@@ -49,7 +49,7 @@ jobs:
         uses: docker/build-push-action@v2.7.0
         with:
           # Path to the Dockerfile
-          file: ./Dockerfile.simple
+          file: $GITHUB_WORKSPACE/Dockerfile.simple
           # Push is a shorthand for --output=type=registry
           push: true
           # List of tags
