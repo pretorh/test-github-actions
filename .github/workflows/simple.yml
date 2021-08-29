@@ -29,6 +29,8 @@ jobs:
       
       - name: github variables
         run: |
+          echo "github context:"
+          echo "sha: ${{ github.sha }}"
           echo "GITHUB_SHA = ${GITHUB_SHA}"
           echo "env is:"
           env
