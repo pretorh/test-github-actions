@@ -45,6 +45,13 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
+      - name: Build and push Docker images tagged with git commit hash
+        uses: docker/build-push-action@v2.7.0
+        with:
+          file: ./Dockerfile.simple
+          push: true
+          tags: pretorh/test-github-actions:simple-${{ github.sha }}
+
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.7.0
         with:
