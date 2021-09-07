@@ -1,3 +1,3 @@
 FROM alpine
 
-CMD echo "simple docker file"
+CMD echo "simple docker file, with the date that it was built baked in: $(date)"
