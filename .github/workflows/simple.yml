@@ -52,7 +52,11 @@ jobs:
           push: true
           tags: pretorh/test-github-actions:simple-${{ github.sha }}
 
-      - name: Build and push Docker images
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Build and push Docker main tag
         uses: docker/build-push-action@v2.7.0
         with:
           # Path to the Dockerfile
