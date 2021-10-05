@@ -5,9 +5,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  on_master:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: this is running on master
+
+  on_branch2:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/branch2'
+
+    steps:
+      - name: Run a one-line script
+        run: this is running on branch2
