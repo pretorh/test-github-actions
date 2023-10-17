@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}
     steps:
+      - name: os-release
+        run: cat /etc/os-release || true
+      - name: debian_version
+        run: cat /etc/debian_version || true
       - name: uname -a
         run: uname -a
 
