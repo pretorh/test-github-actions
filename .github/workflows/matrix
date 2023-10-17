@@ -1,0 +1,28 @@
+name: Run on different containers
+
+on:
+  workflow_dispatch:
+
+jobs:
+  # https://stackoverflow.com/a/59612559/1016377
+  uname-in-containers:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container: ["ubuntu:20.04", "alpine:3.18", "centos8"]
+    container:
+      image: ${{ matrix.container }}
+
+    steps:
+      - name: uname -a
+        run: uname -a
+
+  uname-in-runs:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: uname -a
+        run: uname -a
