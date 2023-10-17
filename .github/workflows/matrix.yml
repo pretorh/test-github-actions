@@ -1,4 +1,4 @@
-name: Run on different containers
+name: Run on different containers and VMs
 
 on:
   workflow_dispatch:
@@ -6,13 +6,11 @@ on:
 jobs:
   # https://stackoverflow.com/a/59612559/1016377
   uname-in-containers:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        container: ["ubuntu:20.04", "alpine:3.18", "centos8"]
-    container:
-      image: ${{ matrix.container }}
-
+        container: ["ubuntu:20.04", "alpine:3.18", "centos:7"]
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
     steps:
       - name: uname -a
         run: uname -a
