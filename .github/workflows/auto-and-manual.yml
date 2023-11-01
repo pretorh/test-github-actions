@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  # auto on push
+  push:
+    branches: [ "master" ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: hello
+        run: echo Hello, world!
+
+  manual-job:
+    runs-on: ubuntu-latest
+    # based on https://stackoverflow.com/a/75285217/1016377
+    if: ${{ github.ref_name == 'master' && github.event_name == 'workflow_dispatch' }}
+
+    steps:
+      - name: hello again, manual
+        run: echo "manual-job triggered"
