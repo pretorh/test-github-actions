@@ -1,4 +1,4 @@
-name: CI
+name: Auto with manual approval
 
 on:
   # auto on push
@@ -16,11 +16,18 @@ jobs:
       - name: hello
         run: echo Hello, world!
 
-  manual-job:
+  wait-approval:
+    needs: build
     runs-on: ubuntu-latest
-    # based on https://stackoverflow.com/a/75285217/1016377
-    if: ${{ github.ref_name == 'master' && github.event_name == 'workflow_dispatch' }}
+    # based on https://stackoverflow.com/a/73708545/1016377
+    # there is a "test-approvers" in settings>environment with required approvers
+    steps:
+      - name: wait for approval
+        run: echo "approval granted"
 
+  manual-job:
+    needs: wait-approval
+    runs-on: ubuntu-latest
     steps:
       - name: hello again, manual
         run: echo "manual-job triggered"
