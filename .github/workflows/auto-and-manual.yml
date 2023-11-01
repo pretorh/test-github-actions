@@ -18,6 +18,8 @@ jobs:
 
   wait-approval:
     needs: build
+    environment:
+      name: test-approvers
     runs-on: ubuntu-latest
     # based on https://stackoverflow.com/a/73708545/1016377
     # there is a "test-approvers" in settings>environment with required approvers
