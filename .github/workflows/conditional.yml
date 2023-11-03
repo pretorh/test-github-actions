@@ -1,0 +1,29 @@
+name: Conditionaly run job
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run a one-line script
+        run: echo Hello, world!
+  ref-filter:
+    if: ${{ github.ref == 'refs/head/master' }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run a one-line script
+        run: echo this only runs on master
+  commit-filter:
+    if: ${{ ! startsWith(github.event.head_commit.message, 'trigger ') }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run a one-line script
+        run: echo this only runs based on the commit message
