@@ -94,12 +94,12 @@ jobs:
         version=v0.$(date --iso-8601)
         notes=$(echo "A release auto created from ${{ github.sha }}")
         echo "version: $version"
-        echo "notes: $notes"
-        echo "::set-output name=version::$version"
-        echo "::set-output name=notes::$notes"
+        
+        echo "version=$version" >> $GITHUB_OUTPUT
+        echo "notes=$notes" >> $GITHUB_OUTPUT
     - uses: ncipollo/release-action@v1
       with:
-        body: ${{ steps.generate_release_details.outputs.notes }}"
+        body: ${{ steps.generate_release_details.outputs.notes }}
         commit: ${{ github.sha }}
         draft: true
-        tag: ${{ steps.generate_release_details.outputs.version }}"
+        tag: ${{ steps.generate_release_details.outputs.version }}
