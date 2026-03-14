@@ -81,3 +81,16 @@ jobs:
           # List of tags
           tags: pretorh/test-github-actions:simple
           cache-from: type=registry,ref=pretorh/test-github-actions:simple-${{ github.sha }}
+
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ncipollo/release-action@v1
+      with:
+        body: "A release auto created from ${{ github.sha }}"
+        commit: ${{ github.sha }}
+        draft: true
+        tag: v0.${date --iso-8601}
