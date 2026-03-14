@@ -88,9 +88,18 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v4
+    - name: Generate release details
+      id: generate_release_details
+      run: |
+        version=v0.${date --iso-8601}
+        notes=$(echo "A release auto created from ${{ github.sha }}")
+        echo "version: $version"
+        echo "notes: $notes"
+        echo "::set-output name=version::$version"
+        echo "::set-output name=notes::$notes"
     - uses: ncipollo/release-action@v1
       with:
-        body: "A release auto created from ${{ github.sha }}"
+        body: ${{ steps.generate_release_details.outputs.notes }}"
         commit: ${{ github.sha }}
         draft: true
-        tag: v0.${date --iso-8601}
+        tag: ${{ steps.generate_release_details.outputs.version }}"
